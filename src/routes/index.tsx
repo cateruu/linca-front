@@ -1,7 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router';
 import ClaimUserInput from '../components/ClaimUserInput/ClaimUserInput';
+import { getUserQueryOptions } from '@/queries/user';
 
-const MainPage = () => {
+export const Route = createFileRoute('/')({
+  component: MainPage,
+  loader: async ({ context }) => {
+    await context.queryClient.fetchQuery(getUserQueryOptions());
+  },
+  pendingComponent: () => <p>Loading...</p>,
+});
+
+function MainPage() {
   return (
     <section className='h-screen w-screen bg-orange'>
       <div className='max-w-[1440px] flex items-center justify-between h-full mx-auto px-3'>
@@ -22,8 +31,4 @@ const MainPage = () => {
       </div>
     </section>
   );
-};
-
-export const Route = createFileRoute('/')({
-  component: MainPage,
-});
+}
