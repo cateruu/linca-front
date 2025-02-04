@@ -1,10 +1,10 @@
-import { ErrorCodes } from '@/lib/errorCode';
+import { ERROR_CODES } from '@/lib/errorCode';
 import { ApiError } from '@/types/errors';
 import { CircleX } from 'lucide-react';
 
 export const getErrorElement = (error: ApiError) => {
   switch (error.errorCode) {
-    case ErrorCodes.NOT_FOUND:
+    case ERROR_CODES.NOT_FOUND:
       return (
         <div className='font-display flex items-center gap-3'>
           <CircleX color='#c42348' />
@@ -13,9 +13,9 @@ export const getErrorElement = (error: ApiError) => {
           </p>
         </div>
       );
-    case ErrorCodes.UNATHORIZED:
+    case ERROR_CODES.UNATHORIZED:
       return <div></div>;
-    case ErrorCodes.USERNAME_TAKEN:
+    case ERROR_CODES.USERNAME_TAKEN:
       return (
         <div className='font-display flex items-center gap-3'>
           <CircleX color='#c42348' />
