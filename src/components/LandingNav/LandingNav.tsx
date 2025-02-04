@@ -4,7 +4,6 @@ import { Link, useLocation } from '@tanstack/react-router';
 function LandingNav() {
   const pathaname = useLocation({ select: (location) => location.pathname });
   const { data } = useUser();
-  console.log(data);
 
   return (
     <>
