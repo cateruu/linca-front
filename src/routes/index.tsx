@@ -5,7 +5,11 @@ import { getUserQueryOptions } from '@/queries/user';
 export const Route = createFileRoute('/')({
   component: MainPage,
   loader: async ({ context }) => {
-    await context.queryClient.fetchQuery(getUserQueryOptions());
+    try {
+      await context.queryClient.fetchQuery(getUserQueryOptions());
+    } catch {
+      console.error('no user');
+    }
   },
   pendingComponent: () => <p>Loading...</p>,
 });

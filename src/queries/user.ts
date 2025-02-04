@@ -31,6 +31,7 @@ export function getUserQueryOptions() {
     queryKey: ['user'],
     queryFn: async () => await getUser(),
     staleTime: Infinity,
+    retry: false,
   });
 }
 
