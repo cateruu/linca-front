@@ -11,11 +11,14 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { TokenResponse } from '@/types/auth';
 import { axiosInstante } from '@/utils/axios';
+import { getErrorElement } from '@/utils/getErrorMessage';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import { AxiosError } from 'axios';
 import { LoaderCircle, Undo } from 'lucide-react';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 export const Route = createFileRoute('/login')({
@@ -41,13 +44,14 @@ function RouteComponent() {
     },
   });
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    console.log('aha');
     setIsLoading(true);
     try {
       await axiosInstante.post<TokenResponse>('/auth/login', data);
       navigate({ to: '/' });
     } catch (error) {
-      console.error(error);
+      if (error instanceof AxiosError) {
+        toast.error(getErrorElement(error.response?.data));
+      }
     } finally {
       setIsLoading(false);
     }
